@@ -1,29 +1,39 @@
 import db from './../models';
 
-const postController = {};
+const ipaddressController = {};
 
 
 //replace userId with JWT 
-postController.post = (req, res) =>{
+ipaddressController.post = (req, res) =>{
     const{
-        title,
-        text,
-        link, 
-        userId,
+        hostname,
+        ipv4,
+        ipv6,
+        container,
+        docker,
+        vm,
+        operating_system,
+        description
+
     } = req.body;
     
     //validation either text or link, not both
-    const post = new db.Post({
-        title,
-        text,
-        link, 
+    const ipaddress = new db.ipaddress({
+        hostname,
+        ipv4,
+        ipv6,
+        container,
+        docker,
+        vm,
+        operating_system,
+        description,
         _creator: userId,
     });
 
-    post.save().then((newPost) => {
+    ipaddress.save().then((newipaddress) => {
         return res.status(200).json({
             success: true,
-            data: newPost
+            data: newipaddress
         });
     }).catch((err) => {
         return res.status(500).json({
@@ -32,18 +42,18 @@ postController.post = (req, res) =>{
     })
 };
 
-postController.getAll = (req, res) => {
-    db.Post.find({}).populate({
+ipaddressController.getAll = (req, res) => {
+    db.ipaddress.find({}).populate({
         path: '_creator',
         select: 'username createdAt -_id'
     }).populate({
         path: '_comments',
         select: 'text createdAt _creator',
         match: { 'isDeleted': false }
-    }).then((posts) => {
+    }).then((ipaddresss) => {
     return res.status(200).json({
             success: true,
-            data: posts
+            data: ipaddresss
         });
     }).catch((err) => {
         return res.status(500).json({
@@ -52,4 +62,4 @@ postController.getAll = (req, res) => {
     })
 };
 
-export default postController;
+export default ipaddressController;
