@@ -2,7 +2,7 @@ const basicController = {};
 
 basicController.get = (req, res) =>{
     res.json({
-        message: 'Woo API'
+        message: 'Woo API, express is working'
     });
 };
 
