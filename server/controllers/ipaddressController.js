@@ -2,8 +2,7 @@ import db from './../models';
 
 const ipaddressController = {};
 
-
-//replace userId with JWT 
+//post
 ipaddressController.post = (req, res) =>{
     const{
         hostname,
@@ -41,15 +40,9 @@ ipaddressController.post = (req, res) =>{
         });
     })
 };
-
+//getAll
 ipaddressController.getAll = (req, res) => {
-    db.ipaddress.find({}).populate({
-        path: '_creator',
-        select: 'username createdAt -_id'
-    }).populate({
-        path: '_comments',
-        select: 'text createdAt _creator',
-        match: { 'isDeleted': false }
+    db.ipaddress.findAll()({
     }).then((ipaddresss) => {
     return res.status(200).json({
             success: true,
