@@ -17,7 +17,7 @@ ipaddressController.post = (req, res) =>{
     } = req.body;
     
     //validation either text or link, not both
-    const ipaddress = new db.ipaddress({
+    const ipaddress = new db.IpAddress({
         hostname,
         ipv4,
         ipv6,
@@ -25,8 +25,7 @@ ipaddressController.post = (req, res) =>{
         docker,
         vm,
         operating_system,
-        description,
-        _creator: userId,
+        description
     });
 
     ipaddress.save().then((newipaddress) => {
@@ -42,8 +41,7 @@ ipaddressController.post = (req, res) =>{
 };
 //getAll
 ipaddressController.getAll = (req, res) => {
-    db.ipaddress.findAll()({
-    }).then((ipaddresss) => {
+    db.IpAddress.find({}).then((ipaddresss) => {
     return res.status(200).json({
             success: true,
             data: ipaddresss

@@ -11,16 +11,10 @@ const ipaddressSchema = new Schema({
         minlength: [8, 'Hostname must be 8 characters or more']
     },
     ipv4:{
-        type: String,
-        required: true,
-        minlength: [9, 'A valid ipv4 address must be between 9 and 21 characters'],
-        maxlength: [21, 'A valid ipv4 address must be between 9 and 21 characters']
+        type: String
     },
     ipv6:{
-        type: String,
-        required: true,
-        minlength: [9, 'A valid ipv6 address must be between 9 and 45 characters'],
-        maxlength: [45, 'A valid ipv6 address must be between 9 and 45 characters']
+        type: String
     },
     container:{
         type: Boolean,
